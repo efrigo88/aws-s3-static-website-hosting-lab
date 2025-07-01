@@ -70,3 +70,8 @@ resource "aws_s3_bucket_policy" "website" {
 
   depends_on = [aws_s3_bucket_public_access_block.website]
 }
+
+output "s3_website_url" {
+  description = "S3 website HTTP URL (copy and paste this)"
+  value       = "http://${aws_s3_bucket_website_configuration.website.website_endpoint}"
+}

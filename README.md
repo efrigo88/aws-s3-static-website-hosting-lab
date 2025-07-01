@@ -19,6 +19,7 @@ aws-s3-static-website-hosting-lab/
 │   ├── provider.tf      # AWS provider configuration
 │   ├── variables.tf     # Input variables
 │   ├── s3.tf           # S3 bucket and website configuration
+│   ├── s3_files.tf     # S3 object uploads
 │   └── iam.tf          # IAM user and policies
 ├── website/
 │   ├── index.html      # Main website page
@@ -112,10 +113,8 @@ terraform destroy
 
 After deployment, Terraform will output:
 
-- `website_endpoint`: S3 website endpoint URL
-- `website_domain`: S3 website domain
+- `s3_website_url`: S3 website HTTP URL
 - `bucket_name`: S3 bucket name
-- `website_manager_user`: IAM user for website management
 
 ## 🎨 Customizing the Website
 
@@ -128,13 +127,13 @@ The website template is located in the `website/` directory:
 ### Adding New Pages
 
 1. Create new HTML files in the `website/` directory
-2. Add corresponding `aws_s3_object` resources in `terraform/s3.tf`
+2. Add corresponding `aws_s3_object` resources in `terraform/s3_files.tf`
 3. Run `./scripts/deploy.sh` to upload the new files
 
 ### Example: Adding a new page
 
 ```hcl
-# In terraform/s3.tf
+# In terraform/s3_files.tf
 resource "aws_s3_object" "about_html" {
   bucket       = aws_s3_bucket.website.id
   key          = "about.html"
@@ -144,7 +143,7 @@ resource "aws_s3_object" "about_html" {
 }
 ```
 
-## �� Security Features
+## 🔒 Security Features
 
 - **Public Read Access**: Configured for static website hosting
 - **IAM User**: Dedicated user with minimal required permissions
@@ -161,11 +160,10 @@ resource "aws_s3_object" "about_html" {
 
 ## 📝 Best Practices
 
-1. **Use HTTPS**: Consider adding CloudFront for HTTPS support
-2. **Custom Domain**: Configure Route 53 for custom domain names
-3. **CDN**: Add CloudFront for global content delivery
-4. **Monitoring**: Set up CloudWatch for website monitoring
-5. **Backup**: Regular backups using S3 versioning
+1. **Use S3 Website Endpoint**: HTTP only, fast and simple
+2. **Custom Domain (Optional, HTTP only)**: You can point your domain to the S3 website endpoint using your DNS provider, but it will not be HTTPS.
+3. **Monitoring**: Set up CloudWatch for website monitoring
+4. **Backup**: Regular backups using S3 versioning
 
 ## 🐛 Troubleshooting
 
