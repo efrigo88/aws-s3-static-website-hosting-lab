@@ -1,4 +1,3 @@
-# IAM User for S3 Website Management
 resource "aws_iam_user" "website_manager" {
   name = "${var.project_name}-${var.environment}-website-manager"
 
@@ -7,7 +6,6 @@ resource "aws_iam_user" "website_manager" {
   }
 }
 
-# IAM Policy for S3 Website Management
 resource "aws_iam_policy" "website_management" {
   name        = "${var.project_name}-${var.environment}-website-management"
   description = "Policy for managing S3 website bucket"
@@ -32,14 +30,7 @@ resource "aws_iam_policy" "website_management" {
   })
 }
 
-# Attach policy to user
 resource "aws_iam_user_policy_attachment" "website_manager" {
   user       = aws_iam_user.website_manager.name
   policy_arn = aws_iam_policy.website_management.arn
-}
-
-# Output IAM user name
-output "website_manager_user" {
-  description = "IAM user for website management"
-  value       = aws_iam_user.website_manager.name
 }
