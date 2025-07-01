@@ -195,21 +195,6 @@ curl http://your-website-endpoint
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test the deployment
-5. Submit a pull request
-
-## 📞 Support
-
-For issues and questions:
-- Create an issue in this repository
-- Check the troubleshooting section above
-- Review AWS S3 documentation
-
 ---
 
 **Happy hosting! 🎉**
